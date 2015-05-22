@@ -1,0 +1,30 @@
+<div>
+    <?php if (isset($_SESSION['user'])): ?>
+    <a href="?a=new">Neue Nachricht</a>
+    <?php endif; ?>
+</div>
+
+<?php foreach($news as $item): ?>
+
+<div class="news-item"><h3> <?php echo $item->getHeadline() ?> </h3>
+                    <p> <?php echo $item->getTextbody() ?> </p>
+        <?php if($item->getImage() != 0): ?>
+            <img src="'.IMAGE_PATH.$item->getImage().'" alt="" width="150" />';
+        <?php endif; ?>
+        
+           <?php if (isset($_SESSION['user']) && $_SESSION['user']->getId() == $item->getUser()->getId()):
+           ?>
+           <div class="inline-form">
+                <form action="?a=edit" method="post">
+                    <input type="hidden" name="id" value="<?php echo $item->getId() ?>"/>
+                    <button type="submit">Bearbeiten</button>
+                </form>
+                <form action="?a=delete" method="post">
+                    <input type="hidden" name="id" value="<?php echo $item->getId() ?>" />
+                    <button type="submit">Delete</button>
+                </form>
+              </div>
+                    <?php endif;
+                    ?>
+</div>
+    <?php endforeach; ?>

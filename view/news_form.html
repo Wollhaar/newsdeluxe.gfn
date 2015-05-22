@@ -1,0 +1,33 @@
+<form method="post" action="?a=save">
+    <input name="id" id="id" value="<?php echo $news->getId() ?>" type="hidden" />
+    <div>
+        <label class="form-inline">Titel</label>
+        <input type="text" name="headline" id="headline" value="<?php echo $news->getHeadline() ?>" />
+    </div>
+    <div class="form-inline">
+        <label>Nachrichten-Text</label>
+        <textarea name="textbody" id="textbody"><?php echo $news->getTextbody() ?></textarea>
+    </div>
+    <div class="form-inline">
+        <label>Bild</label>
+        <input type="text" name="image" id="image" value="<?php echo $news->getImage() ?>" />
+    </div>
+    <div class="form-inline">
+        <label>Kategorie</label>
+        <select name="category" id="category">
+            <?php foreach($categories as $category): ?>
+            <option <?php echo ($news->getCategory()->getId() == $category->getId() ? 'selected' : '') ?>value="<?php echo $category->getId() ?>"><?php echo $category->getName() ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div class="form-inline">
+        <label>Status</label>
+        <select name="status" id="status">
+            <option <?php echo ($news->getStatus == 0 ? 'selected' : '') ?> value="0">offline</option>
+            <option <?php echo ($news->getStatus == 1 ? 'selected' : '') ?> value="1">online</option>
+            <option <?php echo ($news->getStatus == 2 ? 'selected' : '') ?> value="2">deaktiviert</option>
+            <option <?php echo ($news->getStatus == 3 ? 'selected' : '') ?> value="3">gelöscht</option>
+        </select>
+    </div>
+    <input type="submit" value="Speichern" />
+</form>

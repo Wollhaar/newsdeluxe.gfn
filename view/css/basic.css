@@ -1,0 +1,53 @@
+html, body{
+    margin: 0;
+    padding: 0;
+    background-color: #FFF;
+    
+}
+
+*{
+    
+}
+
+#wrapper{
+    width: 960px;;
+    margin: auto;
+    padding: 5px;
+    min-height: 600px;
+    background-color: #ddd;
+    color: #333;
+}
+form{
+    margin: 10px 0;
+}
+
+.inline-form{
+    overflow: hidden;
+}
+
+.inline-form form{
+    float: left;
+}
+
+.form-inline{
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+.form-inline label{
+    width: 200px;
+    display: block;
+    float: left;
+    padding-right: 10px;
+}
+
+.form-inline input,
+.form-inline textarea,
+.form-inline select{
+    width: 250px;
+    float: left;
+    padding: 5px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    resize: none;
+}

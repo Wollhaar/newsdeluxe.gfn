@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="<?php echo CSS_PATH ?>basic.css" />
+    </head>
+    <body>
+        <div id="wrapper">
+
+            <?php if(isset($_SESSION['user'])): ?>
+            <p>
+                eingelogged als <?php echo $_SESSION['user']->getEmail() ?>
+                <a href="index.php?a=logout">Logout</a>';
+            </p>
+            <?php else: ?>
+            <form action="index.php?a=login" method="post">
+                
+                <input type="text" name="email" placeholder="Email" />
+                <input type="password" name="password" placeholder="Password" />
+                <input type="submit" name="login" value="Login" />
+
+            </form>
+            <?php if(filter_input(INPUT_GET, 'e') == 1): ?>
+            <p>Fehler beim Login!</p>
+            
+            <?php endif; 
+            endif; ?>
+            <div id="nav">
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="index.php?a=all">All</a></li>
+                </ul>
+
+            </div>
+            <div id="header">
+
+                <form action="index.php?a=search" method="post">
+                    <input type="text" name="search" placeholder="Textsuche" />
+                    <button type="submit">Suchen</button>
+                </form>
+            </div>
+
+            <? include $tpl ?>
+        </div>
+    </body>
+</html>
