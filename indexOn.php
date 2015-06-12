@@ -1,6 +1,6 @@
-<?
+<?php
 
-//session_start();
+
 
 require_once 'conf.php';
 
@@ -9,10 +9,7 @@ use Entities\News,
  Entities\User;
 
 $action = filter_input(INPUT_GET, 'a');
-/*$db = new DBManager();
-$conn = $db->getConnection();
-$nm = new Newsmapper($conn);
-*/
+
 
 switch ($action) {
     case 'all':
@@ -53,35 +50,11 @@ switch ($action) {
 } 
  catch (Exception $e){
     
-    //echo $e->getMessage();
+    echo $e->getMessage();
  }
          
         header('location: ?a=all');
         die();
-//        $file = $_FILES['image'];
-//        $destination = 0;
-        
-//        if(!empty($file)){
-//            $input = $file['tmp_name'];
-//            $output = uniqid(). $file['name'];
-//            move_uploaded_file($input, IMAGE_PATH.$output);
-//        } 
-//        
-//        $sql = "INSERT INTO news (created, headline, textbody, status, image, benutzerId)
-//        VALUES (NOW(), ?, ?, ?, ?, ?)";
-//        $stmt = $conn->prepare($sql);
-//        $stmt->execute(array($data['headline'],
-//                            $data['textbody'],
-//                            $data['status'],
-//                            $output,
-//                            $_SESSION['user']['id']));
-//        //getDebug($conn, $stmt);
-//        if ($conn->lastInsertId() > 0) {
-//            $output = '<p>Nachricht wurde gespeichert</p>';
-//        } else {
-//            unlink(IMAGE_PATH.$destination);
-//            $output = '<p>Nachricht kann grad nicht gespeichert werden.';
-//        }
 
         break;
         
@@ -94,7 +67,6 @@ switch ($action) {
         }
         $news = $query->getResult();
         $tpl = VIEW_PATH.'news_list.html';
-//$output = showNewsItems($nm->findAll());
         break;
     
     case 'update':
@@ -117,9 +89,6 @@ switch ($action) {
     
     case 'search':
         $input = '%' . filter_input(INPUT_POST, 'search') . '%';
-        //$em->createQuery('SELECT n FROM Entities/News n WHERE n.headline LIKE :headline OR n.textbody LIKE :textbody ORDER BY n.created DESC')
-        //->setParameter('headline', $input)->setParameter('textbody', $input);
-        //$news = $query->getResult();
         
         //Querybuilder
         $query = $em->createQueryBuilder()
@@ -134,7 +103,6 @@ switch ($action) {
         $news = $query->getResult();
         
         $tpl = VIEW_PATH.'news_list.html';
-        //$output = showNewsItems($nm->findByString($input));
         break;
     case 'new':
         $obj = new News();
@@ -172,7 +140,6 @@ switch ($action) {
         
         
         $tpl = VIEW_PATH.'news_form.html';
-        //$output .= $nm->showNewsForm($obj);
         
         
         break;
@@ -183,8 +150,6 @@ switch ($action) {
             
             $query = $em->createQuery('SELECT u FROM Entities\User u WHERE u.email = :email AND u.password = :password')->setParameter('email', $email)->setParameter('password', $password);
             
-//            $stmt = $conn->prepare('SELECT * FROM user WHERE username = ? AND password = ?');
-//            $stmt->execute(array($username, $password));
 
         try {
             $user = $query->getSingleResult();
@@ -193,17 +158,11 @@ switch ($action) {
         } catch (Exception $ex) {
             header('location: ?a=all&e=1');
         }
-//            if ($user instanceof Entities\User) {
-//                
-//            } else {
-//                
-//            }
-        
+
 
         break;
 
     case 'logout':
-        //$session = array();
         unset($_SESSION['user']);
         header('location: index.php?a=all');
         break;
@@ -218,7 +177,6 @@ switch ($action) {
         $news = $query->getResult();
         $news = $em->getRepository('Entities\News')->findAll();
         $tpl = VIEW_PATH.'news_list.html';
-        //$output = showNewsItems($nm->findLatest());
 }
 
 include_once 'view/standard.html';
